@@ -1,6 +1,9 @@
 const express = require('express');
 const request = require('request');
+const cors = require('cors');
 const app = express();
+
+app.use(cors());  // Allow all origins - for testing only
 
 app.get('/proxy', (req, res) => {
   const url = req.query.url;
@@ -9,4 +12,4 @@ app.get('/proxy', (req, res) => {
   request({ url, headers: { 'User-Agent': 'Mozilla/5.0' } }).pipe(res);
 });
 
-app.listen(3000, () => console.log('Geo-Proxy running on port 3000'));
+app.listen(process.env.PORT || 3000, () => console.log('Geo-Proxy running'));
